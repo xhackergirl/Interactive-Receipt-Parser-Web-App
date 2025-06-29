@@ -1,0 +1,16 @@
+<form method="GET">
+    Vendor: <input type="text" name="vendor" value="{{ request.GET.vendor }}">
+    Month: <input type="month" name="month" value="{{ request.GET.month }}">
+    <button type="submit">Filter</button>
+</form>
+
+<ul>
+  {% for r in receipts %}
+    <li>
+      <strong>{{ r.vendor }}</strong> — ${{ r.total }} — {{ r.date }}<br>
+      <img src="{{ r.image.url }}" width="250"><br>
+      <pre style="background:#eee; padding:10px;">{{ r.raw_text }}</pre>
+      <a href="{% url 'edit_receipt' r.id %}">✏️ Edit</a>
+    </li>
+  {% endfor %}
+</ul>

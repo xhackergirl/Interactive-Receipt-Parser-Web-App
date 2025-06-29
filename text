@@ -1,0 +1,12 @@
+src/
+├── pages/
+│   ├── Login.jsx
+│   ├── Dashboard.jsx
+│   ├── Upload.jsx
+│   └── EditReceipt.jsx
+├── components/
+│   └── ReceiptCard.jsx
+├── api/
+│   └── api.js
+├── App.jsx
+└── main.jsx

@@ -1,0 +1,8 @@
+<h2>Edit Receipt</h2>
+<form method="POST">
+    {% csrf_token %}
+    Vendor: <input type="text" name="vendor" value="{{ r.vendor }}"><br>
+    Total: <input type="text" name="total" value="{{ r.total }}"><br>
+    Date: <input type="date" name="date" value="{{ r.date }}"><br>
+    <button type="submit">Save</button>
+</form>

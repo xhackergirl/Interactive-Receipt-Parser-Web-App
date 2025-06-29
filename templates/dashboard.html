@@ -1,0 +1,11 @@
+<h2>Your Receipts</h2>
+<ul>
+  {% for r in receipts %}
+    <li>
+      <strong>{{ r.vendor }}</strong> —
+      ${{ r.total }} —
+      {{ r.date }}
+      <img src="{{ r.image.url }}" width="100"/>
+    </li>
+  {% endfor %}
+</ul>
