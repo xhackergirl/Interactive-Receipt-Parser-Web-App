@@ -5,7 +5,7 @@ export default function LogoutButton() {
   const navigate = useNavigate()
 
   function logout() {
-    localStorage.removeItem("authToken")
+    localStorage.removeItem("access")
     api.defaults.headers.common["Authorization"] = null
     navigate("/login")
   }
