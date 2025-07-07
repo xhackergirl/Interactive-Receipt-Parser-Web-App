@@ -12,14 +12,6 @@ from .serializers import ReceiptSerializer, RegisterSerializer
 from .ocr import extract_receipt_data
 
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def list_receipts(request):
-    receipts = Receipt.objects.filter(user=request.user)
-    serializer = ReceiptSerializer(receipts, many=True)
-    return Response(serializer.data)
-
-
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def upload_receipt_api(request):
