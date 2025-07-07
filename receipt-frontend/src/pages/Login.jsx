@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import api, { setAuthToken } from "../api/api"
 
 export default function Login() {
@@ -7,8 +7,6 @@ export default function Login() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
-  localStorage.setItem('access', response.data.access);
-  localStorage.setItem('refresh', response.data.refresh);
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -65,16 +63,14 @@ export default function Login() {
           Log In
         </button>
       </form>
+      <p className="text-center mt-4">
+        Don't have an account?{' '}
+        <Link to="/register" className="text-blue-600 hover:underline">
+          Register
+        </Link>
+      </p>
     </div>
-    
+
   )
 }
-import { Link } from 'react-router-dom'
-
-<p className="text-center mt-4">
-  Don't have an account?{' '}
-  <Link to="/register" className="text-blue-600 hover:underline">
-    Register
-  </Link>
-</p>
 

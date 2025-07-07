@@ -7,15 +7,15 @@ const api = axios.create({
 export function setAuthToken(token) {
   if (token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`
-    localStorage.setItem("authToken", token)
+    localStorage.setItem("access", token)
   } else {
     delete api.defaults.headers.common["Authorization"]
-    localStorage.removeItem("authToken")
+    localStorage.removeItem("access")
   }
 }
 
 // On app load, set token from localStorage if present
-const storedToken = localStorage.getItem("authToken")
+const storedToken = localStorage.getItem("access")
 if (storedToken) {
   setAuthToken(storedToken)
 }
