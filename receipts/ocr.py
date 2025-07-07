@@ -6,12 +6,11 @@ from dateutil import parser
 # OPTIONAL: Set tesseract path manually if needed
 # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 from pdf2image import convert_from_path
-
-POPPLER_PATH = r"C:\Users\USER\Documents\poppler\poppler-24.08.0\Library\bin"  # Replace this
+from django.conf import settings
 
 def load_images_from_file(path):
     if path.lower().endswith('.pdf'):
-        pages = convert_from_path(path, poppler_path=POPPLER_PATH)
+        pages = convert_from_path(path, poppler_path=settings.POPPLER_PATH or None)
         return pages  # list of PIL Images
     else:
         return [clean_image(path)]  # single image in a list
