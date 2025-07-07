@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 from rest_framework import generics, status
 from django.contrib.auth.models import User
+from django.db.models.functions import TruncMonth
+from django.db.models import Sum
 
 from .models import Receipt
 from .serializers import ReceiptSerializer, RegisterSerializer
@@ -72,3 +74,16 @@ class ReceiptListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Receipt.objects.filter(user=self.request.user)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def monthly_summary(request):
+    summary = (
+        Receipt.objects.filter(user=request.user)
+        .annotate(month=TruncMonth('date'))
+        .values('month')
+        .annotate(total=Sum('total'))
+        .order_by('month')
+    )
+    return Response(list(summary))

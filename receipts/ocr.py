@@ -1,7 +1,10 @@
 import pytesseract
 from PIL import Image, ImageEnhance, ImageFilter
 import re
-from dateutil import parser
+try:
+    from dateutil import parser
+except ImportError:  # pragma: no cover - dependency may be missing in tests
+    parser = None
 
 # OPTIONAL: Set tesseract path manually if needed
 # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
@@ -64,9 +67,12 @@ def extract_receipt_data(image_path, return_text=False):
         prices = extract_all_prices(text)
         total = max(prices) if prices else None
 
-    try:
-        date = parser.parse(text, fuzzy=True).date()
-    except:
+    if parser is not None:
+        try:
+            date = parser.parse(text, fuzzy=True).date()
+        except Exception:
+            date = None
+    else:
         date = None
 
     data = {
